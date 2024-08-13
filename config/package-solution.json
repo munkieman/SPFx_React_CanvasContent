@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "canvas-content-client-side-solution",
+    "id": "f178efe4-36bb-4507-9d7b-2c64772dafe0",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "CanvasContent description"
+      },
+      "longDescription": {
+        "default": "CanvasContent description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "canvas-content Feature",
+        "description": "The feature that activates elements of the canvas-content solution.",
+        "id": "0bcfb9c5-e6cb-4f56-8311-d7f8fa6b36c5",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/canvas-content.sppkg"
+  }
+}
