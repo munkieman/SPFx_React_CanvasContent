@@ -117,9 +117,11 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
     console.log("items",items);
     
     let html: string="";
-    for(const item of items){
-      console.log("item",item.id);
-      //html += `<div><h1>webpart title: ${item.webPartData.title}</h1></div>`;
+    for(let x=1;x<items.length-1;x++){
+      if(items[x].webPartId !== undefined){
+        console.log("item",x,items[x].webPartData.title);
+        html += `<div><h1>webpart title: ${items[x].webPartData.title}</h1></div>`;
+      }
     }
     //html += '<div><h1>webpart title: </h1></div>';
 
