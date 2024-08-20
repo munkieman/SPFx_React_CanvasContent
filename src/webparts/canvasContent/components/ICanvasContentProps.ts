@@ -9,4 +9,6 @@ export interface ICanvasContentProps {
   siteUrl: string;
   context: any;
   spHttpClient: SPHttpClient;
+  useList: boolean;
+  numGroups: number;
 }

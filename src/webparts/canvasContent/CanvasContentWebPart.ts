@@ -3,7 +3,9 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   type IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneCheckbox,
+  PropertyPaneSlider
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
@@ -15,6 +17,8 @@ import { ICanvasContentProps } from './components/ICanvasContentProps';
 export interface ICanvasContentWebPartProps {
   description: string;
   siteUrl: string;
+  useList: boolean;
+  numGroups: number;
 }
 
 export default class CanvasContentWebPart extends BaseClientSideWebPart<ICanvasContentWebPartProps> {
@@ -33,11 +37,14 @@ export default class CanvasContentWebPart extends BaseClientSideWebPart<ICanvasC
         userDisplayName: this.context.pageContext.user.displayName,
         siteUrl: this.context.pageContext.site.absoluteUrl,
         spHttpClient: this.context.spHttpClient,
-        context: this.context
+        context: this.context,
+        useList: this.properties.useList,
+        numGroups: this.properties.numGroups
       }
     );
 
     ReactDom.render(element, this.domElement);
+    console.log("useList",this.properties.useList,"numgroups",this.properties.numGroups);
   }
 
   protected onInit(): Promise<void> {
@@ -112,6 +119,16 @@ export default class CanvasContentWebPart extends BaseClientSideWebPart<ICanvasC
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                }),
+                PropertyPaneSlider('numGroups', {
+                  label:'How Many Link Groups? (max 10)',
+                  min:0,
+                  max:10,
+                  value:0
+                }),
+                PropertyPaneCheckbox('useList', {
+                  text: 'Use SharePoint List as link data?',
+                  checked: false
                 })
               ]
             }

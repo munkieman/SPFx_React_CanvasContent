@@ -11,31 +11,35 @@ import { SPHttpClient } from '@microsoft/sp-http';
 //let grouptitle4:string="";
 //let grouptitle5:string="";
 
-let panelHTML: any[]=[];
+//let panelHTML: any[]=[];
 
 export interface IStates {
+  stateUseList: boolean;
 }
 
 export default class CanvasContent extends React.Component<ICanvasContentProps, IStates, {}> {
 
-  //constructor(props){
-  //  super(props);
+  public constructor(props:ICanvasContentProps){
+    super(props);
 
-  //  this.state = {};
-  //}
+    this.state = {
+      stateUseList: false
+    };
+  }
 
   public componentDidMount(): void {
     console.log("component did mount");
     //this._getWebPartData();    
   }
 
-  public componentWillMount(): void {
-    console.log("component will mount");
+  //public componentWillMount(): void {
+  //  console.log("component will mount");
     //this._getWebPartData();    
-  }
+  //}
 
   public componentDidUpdate(): void {
     console.log("component did update");
+    this.setState({stateUseList:this.props.useList})
     //this._getWebPartData();    
   }
 
@@ -53,8 +57,11 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
       userDisplayName
     } = this.props;
 
-    this._renderWebPartDataAsync();    
-    console.log("render data",panelHTML);
+    if(this.props.useList){
+      this._renderWebPartDataAsync();    
+    }
+
+    //console.log("render data",panelHTML);
 
     return (
       <section className={`${styles.canvasContent} ${hasTeamsContext ? styles.teams : ''}`}>
@@ -64,8 +71,10 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
           <div>{environmentMessage}</div>
           <div>Web part property value: <strong>{escape(description)}</strong></div>
         </div>
-        
-        <div id="spContainer"></div>
+        <div>UseList Props: {this.props.useList}</div>
+        <div>UseList State: {this.state.stateUseList}</div>
+        <div>Number of Groups: {this.props.numGroups}</div>
+        <div id="spContainer"/>
 
         <div>
           <h3>Welcome to SharePoint Framework!</h3>
@@ -119,11 +128,16 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
     let html: string="";
     for(let x=1;x<items.length-1;x++){
       if(items[x].webPartId !== undefined){
-        console.log("item",x,items[x].webPartData.title);
-        html += `<div><h1>webpart title: ${items[x].webPartData.title}</h1></div>`;
+        let wpTitle : string = items[x].webPartData.title;
+        if(wpTitle === "Important Links"){        
+          console.log("item",x,items[x].webPartData.title);
+          html += `<div>
+                    <h1>webpart title: ${items[x].webPartData.title}</h1>
+                    <h1>group title: ${items[x].webPartData.properties.Group1Title}</h1>
+                  </div>`;
+        }
       }
     }
-    //html += '<div><h1>webpart title: </h1></div>';
 
     //const listContainer: Element = document.querySelector('#spListContainer')!;
     document.querySelector('#spContainer')!.innerHTML = html;
