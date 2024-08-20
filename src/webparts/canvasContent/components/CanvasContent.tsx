@@ -39,8 +39,12 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
 
   public componentDidUpdate(): void {
     console.log("component did update");
-    this.setState({stateUseList:this.props.useList})
-    //this._getWebPartData();    
+    console.log("uselist flag",this.props.useList);
+    //this.setState({stateUseList:this.props.useList})
+    //this._getWebPartData();
+    if(this.props.useList){
+      this._renderWebPartDataAsync();    
+    }    
   }
 
   public componentWillUnmount(): void {
@@ -56,10 +60,6 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
       hasTeamsContext,
       userDisplayName
     } = this.props;
-
-    if(this.props.useList){
-      this._renderWebPartDataAsync();    
-    }
 
     //console.log("render data",panelHTML);
 
