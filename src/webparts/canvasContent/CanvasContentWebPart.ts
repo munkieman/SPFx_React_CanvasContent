@@ -17,7 +17,7 @@ import { ICanvasContentProps } from './components/ICanvasContentProps';
 export interface ICanvasContentWebPartProps {
   description: string;
   siteUrl: string;
-  useList: boolean;
+  useList: string;
   numGroups: number;
 }
 

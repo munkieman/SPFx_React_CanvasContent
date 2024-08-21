@@ -58,7 +58,8 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
       isDarkTheme,
       environmentMessage,
       hasTeamsContext,
-      userDisplayName
+      userDisplayName,
+      useList
     } = this.props;
 
     //console.log("render data",panelHTML);
@@ -71,8 +72,7 @@ export default class CanvasContent extends React.Component<ICanvasContentProps, 
           <div>{environmentMessage}</div>
           <div>Web part property value: <strong>{escape(description)}</strong></div>
         </div>
-        <div>UseList Props: {this.props.useList}</div>
-        <div>UseList State: {this.state.stateUseList}</div>
+        <div>UseList Props: {escape(useList)}</div>
         <div>Number of Groups: {this.props.numGroups}</div>
         <div id="spContainer"/>
 
